@@ -1,0 +1,23 @@
+{
+    "name": "conr/practice-on-server",
+    "description": "a practical assignment for working on the server side using the php language",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "CoHR",
+            "email": "malenkoer@yandex.ru"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^7.4 | ^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Src\\": "core/Src/",
+            "": "app/"
+        }
+    }
+
+}
