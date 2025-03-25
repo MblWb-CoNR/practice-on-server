@@ -11,7 +11,8 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": "^7.4 | ^8.0"
+        "php": "^7.4 | ^8.0",
+        "vendor/packagename": "dev-master"
     },
     "autoload": {
         "psr-4": {
