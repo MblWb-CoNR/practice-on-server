@@ -1,0 +1,108 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: gray;
+}
+
+header {
+    margin: 0 auto;
+    margin-top: 30px;
+    width: 1420px;
+    display: flex;
+    justify-content: space-between;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    width: 380px;
+}
+
+nav > a {
+    font-family: sans-serif;
+    font-size: 16px;
+}
+
+img {
+    height: 50px;
+    width: 50px;
+}
+
+main {
+    margin-top: 100px;
+}
+
+h1 {
+    margin-bottom: 80px;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+h2 {
+    margin-bottom: 80px;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    width: 700px;
+    margin: 0 auto;
+    gap: 50px;
+}
+
+.buttons > a {
+    border: black 1px solid;
+    border-radius: 10px;
+    text-align: center;
+    padding: 90px 50px;
+    font-family: sans-serif;
+    font-size: 16px;
+}
+
+.buttons > a:hover {
+    background-color: lightgrey;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+}
+
+form > button {
+    height: 40px;
+    width: 237px;
+    border-radius: 10px;
+    border: 1px solid;
+}
+
+form > button:hover {
+    background-color: lightgrey;
+}
+
+label {
+    font-family: sans-serif;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+input {
+    width: 540px;
+    height: 60px;
+    border-radius: 10px;
+    border: 1px solid;
+    padding-left: 20px;
+}
