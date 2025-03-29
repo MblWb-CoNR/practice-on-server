@@ -5,14 +5,20 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../../public/css/main.css">
+    <link rel="stylesheet" href="../../route/css/main.css">
     <title>Pop it MVC</title>
 </head>
 <body>
 <header>
-    <img src="../../public/img/logo.svg" alt="uni">
+    <img src="../../route/img/logo.svg" alt="uni">
     <nav>
         <a href="<?= app()->route->getUrl('/hello') ?>">Главная</a>
+        <a href="<?= app()->route->getUrl('/functions')?>" >Функции</a>
+        <a href="<?= app()->route->getUrl('/buildings')?>">Здания</a>
+        <a href="<?= app()->route->getUrl('/rooms')?>">Помещения</a>
+        <?php if (app()->auth::user()->role_id == 1): ?>
+            <a href="<?= app()->route->getUrl('/users')?>">Пользователи</a>
+        <?php endif; ?>
         <?php
         if (!app()->auth::check()):
             ?>
@@ -29,7 +35,6 @@
 </header>
 <main>
     <?= $content ?? '' ?>
-
 </main>
 
 </body>

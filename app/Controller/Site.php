@@ -10,11 +10,6 @@ use Src\Auth\Auth;
 
 class Site
 {
-    public function index(Request $request): string
-    {
-        $posts = Post::where('id', $request->id)->get();
-        return (new View())->render('site.post', ['posts' => $posts]);
-    }
     public function hello(): string
     {
         return (new View())->render('site.hello', ['message' => 'hello working']);
@@ -44,6 +39,11 @@ class Site
         Auth::logout();
         app()->route->redirect('/hello');
     }
+    public function functions(): string
+    {
+        return new View('site.functions');
+    }
+
 }
 
 
