@@ -27,12 +27,31 @@ class BuildingController
     public function rooms(Request $request): string
     {
         $building = Building::find($request->id);
-        return (new View())->render('building.rooms', ['building' => $building]);
+        if (!$building) {
+            app()->route->redirect('/buildings');
+        }
+
+        $rooms = $building->rooms()->with('type')->get();
+        return (new View())->render('building.rooms', [
+            'building' => $building,
+            'rooms' => $rooms
+        ]);
     }
 
     public function stats(): string
     {
         $buildings = Building::with('rooms')->get();
-        return (new View())->render('building.stats', ['building' => $buildings]);
+        $totalArea = $buildings->sum(function($building) {
+            return $building->rooms->sum('area');
+        });
+        $totalSeats = $buildings->sum(function($building) {
+            return $building->rooms->sum('seats');
+        });
+
+        return (new View())->render('building.stats', [
+            'buildings' => $buildings,
+            'totalArea' => $totalArea,
+            'totalSeats' => $totalSeats
+        ]);
     }
 }

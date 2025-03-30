@@ -14,13 +14,13 @@ class Room extends Model
         'name',
         'area',
         'seats',
-        'bilding_id',
+        'building_id',
         'type_id'
     ];
 
     public function building()
     {
-        return $this->belongsTo(Building::class, 'bilding_id');
+        return $this->belongsTo(Building::class, 'building_id');
     }
 
     public function type()

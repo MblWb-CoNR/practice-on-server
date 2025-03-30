@@ -26,5 +26,7 @@ class UserController
 
         // Явно вызываем метод render() для преобразования View в строку
         return (new View('user.create', ['roles' => $roles]))->render();
+
     }
+
 }

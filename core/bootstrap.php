@@ -10,7 +10,7 @@ function getConfigs(string $path = DIR_CONFIG): array
 {
     $settings = [
         'path' => [
-            'root' => '',               // Корень проекта относительно DOCUMENT_ROOT
+            'root' => '',             // Корень проекта относительно DOCUMENT_ROOT
             'views' => '/../views',     // Путь к views (теперь в корне)
         ],
     ];

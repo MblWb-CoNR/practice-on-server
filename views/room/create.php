@@ -18,7 +18,7 @@
         <input type="number" name="seats" required>
     </label>
     <label>Здание:
-        <select name="bidding_id" required>
+        <select name="building_id" required>
             <?php foreach ($buildings as $building): ?>
                 <option value="<?= $building->id ?>"><?= htmlspecialchars($building->name) ?></option>
             <?php endforeach; ?>
