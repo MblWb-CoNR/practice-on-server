@@ -1,8 +1,6 @@
 <h1>Список зданий</h1>
 
-<?php if (app()->auth::user()->role_id == 2): ?>
-    <a href="/buildings/create">Добавить здание</a>
-<?php endif; ?>
+<a href="/buildings/create">Добавить здание</a>
 
 <table>
     <thead>

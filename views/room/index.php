@@ -1,8 +1,6 @@
 <h1>Список помещений</h1>
 
-<?php if (app()->auth::user()->role_id == 2): ?>
-    <a href="<?= app()->route->getUrl('/rooms/create') ?>">Добавить помещение</a>
-<?php endif; ?>
+<a href="<?= app()->route->getUrl('/rooms/create') ?>">Добавить помещение</a>
 
 <table>
     <thead>

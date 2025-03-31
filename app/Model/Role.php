@@ -10,13 +10,10 @@ class Role extends Model
     use HasFactory;
 
     public $timestamps = false;
-    protected $fillable = [
-        'admin',
-        'employee'
-    ];
+    protected $fillable = ['admin', 'employee'];
 
-    public function users()
+    public function getRoleNameAttribute()
     {
-        return $this->hasMany(User::class, 'role_id');
+        return $this->admin ? 'Администратор' : 'Сотрудник';
     }
 }

@@ -1,5 +1,7 @@
 <h1>Добавить новое здание</h1>
 
+<a href=" <?= app()->route->getUrl('/buildings/create') ?>" class="button">Добавить новое здание</a>
+
 <form method="post">
     <label>Название:
         <input type="text" name="name" required>

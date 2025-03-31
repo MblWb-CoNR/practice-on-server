@@ -8,8 +8,11 @@
         <?php endif; ?>
 
         <!-- Для всех авторизованных пользователей -->
+        <a href=" <?= app()->route->getUrl('/buildings/create') ?>" class="button">Добавить новое здание</a>
+        <a href=" <?= app()->route->getUrl('/rooms/create') ?>" class="button">Добавить новое помощение</a>
         <a href=" <?= app()->route->getUrl('/buildings') ?>" class="button">Выбрать название или номер помещения</a>
         <a href=" <?= app()->route->getUrl('/building/stats') ?>" class="button">Подсчет площади и количества мест</a>
+
 
         <?php if (app()->auth::user()->role_id == 1): ?>
             <!-- Только для администратора -->

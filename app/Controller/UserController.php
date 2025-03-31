@@ -18,10 +18,12 @@ class UserController
 
     public function create(Request $request): string
     {
-        $roles = Role::all();
+        $roles = Role::all(); // Получаем все роли из базы
+
         if ($request->method === 'POST' && User::create($request->all())) {
             app()->route->redirect('/users');
         }
+
         return (new View())->render('user.create', ['roles' => $roles]);
     }
 }
