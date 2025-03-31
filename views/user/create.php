@@ -13,7 +13,9 @@
     <label>Роль:
         <select name="role_id" required>
             <?php foreach ($roles as $role): ?>
-                <option value="<?= $role->id ?>"><?= htmlspecialchars($role->name) ?></option>
+                <option value="<?= $role->id ?>">
+                    <?= htmlspecialchars($role->admin ? 'Администратор' : 'Сотрудник') ?>
+                </option>
             <?php endforeach; ?>
         </select>
     </label>

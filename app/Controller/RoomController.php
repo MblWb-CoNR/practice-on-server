@@ -20,18 +20,11 @@ class RoomController
 
     public function create(Request $request): string
     {
-        if ($request->method === 'POST') {
-            $data = $request->all();
-            $data['building_id'] = $data['building_id'];
-            if (Room::create($data)) {
-                app()->route->redirect('/rooms');
-            }
+        if ($request->method === 'POST' && Room::create($request->all())) {
+            app()->route->redirect('/rooms');
         }
         $types = RoomType::all();
         $buildings = Building::all();
-        return new View('room.create', [
-            'types' => $types,
-            'buildings' => $buildings
-        ]);
+        return new View('room.create', ['types' => $types, 'buildings' => $buildings]);
     }
 }

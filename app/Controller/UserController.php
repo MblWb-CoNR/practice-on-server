@@ -19,14 +19,9 @@ class UserController
     public function create(Request $request): string
     {
         $roles = Role::all();
-
         if ($request->method === 'POST' && User::create($request->all())) {
             app()->route->redirect('/users');
         }
-
-        // Явно вызываем метод render() для преобразования View в строку
-        return (new View('user.create', ['roles' => $roles]))->render();
-
+        return (new View())->render('user.create', ['roles' => $roles]);
     }
-
 }
