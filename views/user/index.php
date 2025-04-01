@@ -1,7 +1,7 @@
 <h1>Список пользователей</h1>
 
 <?php if (app()->auth::user()->role_id == 1): ?>
-    <a href="<?= app()->route->getUrl('/users/create') ?>">Добавить пользователя</a>
+    <a href="<?= app()->route->getUrl('/users/create') ?>" class="create">Добавить пользователя</a>
 <?php endif; ?>
 
 <table>

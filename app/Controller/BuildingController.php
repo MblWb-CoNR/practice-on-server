@@ -13,13 +13,22 @@ class BuildingController
     public function index(): string
     {
         $buildings = Building::all();
-        return (new View())->render('building.index', ['building' => $buildings]);
+        return (new View())->render('building.index', ['buildings' => $buildings]);
     }
 
     public function create(Request $request): string
     {
-        if ($request->method === 'POST' && Building::create($request->all())) {
-            app()->route->redirect('/building');
+        if ($request->method === 'POST') {
+            // Получаем ID текущего пользователя
+            $userId = app()->auth::user()->id;
+
+            // Добавляем user_id в данные
+            $data = $request->all();
+            $data['user_id'] = $userId;
+
+            if (Building::create($data)) {
+                app()->route->redirect('/buildings');
+            }
         }
         return new View('building.create');
     }
@@ -40,7 +49,9 @@ class BuildingController
 
     public function stats(): string
     {
-        $buildings = Building::with('rooms')->get();
+        $buildings = Building::with(['rooms' => function($query) {
+            $query->where('type_id', 1);
+        }])->get();
         $totalArea = $buildings->sum(function($building) {
             return $building->rooms->sum('area');
         });

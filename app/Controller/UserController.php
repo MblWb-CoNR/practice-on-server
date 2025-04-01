@@ -20,8 +20,12 @@ class UserController
     {
         $roles = Role::all(); // Получаем все роли из базы
 
-        if ($request->method === 'POST' && User::create($request->all())) {
-            app()->route->redirect('/users');
+        if ($request->method === 'POST') {
+            $userData = $request->all();
+            $userData['password'] = md5($userData['password']);
+            if (User::create($userData)) {
+                app()->route->redirect('/users');
+            }
         }
 
         return (new View())->render('user.create', ['roles' => $roles]);

@@ -19,4 +19,4 @@
     </tbody>
 </table>
 
-<a href=" <?= app()->route->getUrl('/functions') ?>">Назад к функциям</a>
+<a href=" <?= app()->route->getUrl('/functions') ?>" class="create">Назад к функциям</a>

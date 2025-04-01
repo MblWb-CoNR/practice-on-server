@@ -12,7 +12,7 @@ class Site
 {
     public function hello(): string
     {
-        return (new View())->render('site.hello', ['message' => 'hello working']);
+        return (new View())->render('site.hello', ['message' => 'Добро пожаловать на административный сайт университета X']);
     }
     public function signup(Request $request): string
     {
