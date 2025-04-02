@@ -10,5 +10,16 @@ return [
         'auth' => \Middlewares\AuthMiddleware::class,
         'admin' => \Middlewares\AdminMiddleware::class,
         'employee' => \Middlewares\EmployeeMiddleware::class,
+    ],
+    //Классы middleware для валидации, фильтрации
+    'routeAppMiddleware' => [
+        'trim' => \Middlewares\TrimMiddleware::class,
+        'specialChars' => \Middlewares\SpecialCharsMiddleware::class,
+        'csrf' => \Middlewares\CSRFMiddleware::class,
+    ],
+    //Классы для валидации
+    'validators' => [
+        'required' => \Validators\RequireValidator::class,
+        'unique' => \Validators\UniqueValidator::class
     ]
 ];
