@@ -9,10 +9,10 @@ require_once __DIR__ . '/../vendor/autoload.php';
 function getConfigs(string $path = DIR_CONFIG): array
 {
     $settings = [
-        'path' => [
-            'root' => '',             // Корень проекта относительно DOCUMENT_ROOT
-            'views' => '/../views',     // Путь к views (теперь в корне)
-        ],
+//        'path' => [
+//            'root' => '',             // Корень проекта относительно DOCUMENT_ROOT
+//            'views' => '/../views',     // Путь к views (теперь в корне)
+//        ],
     ];
     foreach (scandir(__DIR__ . $path) as $file) {
         $name = explode('.', $file)[0];
