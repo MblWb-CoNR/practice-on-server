@@ -19,11 +19,6 @@ class CSRFMiddleware
         $sessionToken = Session::get('csrf_token');
         $requestToken = $request->get('csrf_token');
 
-        // Отладочная информация (можно удалить после проверки)
-        echo '<pre>Session Token: '; var_dump($sessionToken);
-        echo 'Request Token: '; var_dump($requestToken);
-        echo '</pre>';
-
         // Проверяем токены
         if (empty($sessionToken) || empty($requestToken)) {
             throw new \RuntimeException('CSRF token missing');
