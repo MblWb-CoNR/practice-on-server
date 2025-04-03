@@ -38,7 +38,7 @@ class Middleware
     }
 
     //Запуск всех middlewares для текущего маршрута
-    private function runMiddlewares(string $httpMethod, string $uri, Request $request): Request
+    public function runMiddlewares(string $httpMethod, string $uri, Request $request): Request
     {
         //Получаем список всех разрешенных классов middlewares из настроек приложения
         $routeMiddleware = app()->settings->app['routeMiddleware'];

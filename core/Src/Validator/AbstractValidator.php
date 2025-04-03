@@ -45,6 +45,22 @@ abstract class AbstractValidator
         return $message;
     }
 
+    protected function replacePlaceholders(string $message): string
+    {
+        $replacements = [
+            ':field' => $this->field,
+            ':value' => $this->value,
+            ':min' => $this->args[0] ?? '',
+            ':max' => $this->args[1] ?? ''
+        ];
+
+        return str_replace(
+            array_keys($replacements),
+            array_values($replacements),
+            $message
+        );
+    }
+
     //Основное правило валидации. Его должны переопределить классы-потомки
     abstract public function rule(): bool;
 }

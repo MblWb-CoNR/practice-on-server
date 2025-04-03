@@ -1,8 +1,14 @@
 <h1>Добавить помещение</h1>
 
-<form method="post">
+<form method="post" action="<?= app()->route->getUrl('/rooms/create') ?>" enctype="multipart/form-data">
+    <input type="hidden" name="csrf_token" value="<?= app()->auth::generateCSRF() ?>">
+    <?php if (isset($errors['name'])): ?>
+        <div>
+            <?= implode('<br>', $errors['name']) ?>
+        </div>
+    <?php endif ?>
     <label>Название/номер:
-        <input type="text" name="name" required>
+        <input type="text" name="name" value="<?= htmlspecialchars($old['name'] ?? '') ?>" class="<?= isset($errors['name']) ? 'is-invalid' : '' ?>">
     </label>
     <label>Тип помещения:
         <select name="type_id" required>

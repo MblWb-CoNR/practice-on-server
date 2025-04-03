@@ -7,6 +7,7 @@ use Src\View;
 use Src\Request;
 use Model\User;
 use Src\Auth\Auth;
+use Src\Validator\Validator;
 
 class BuildingController
 {
@@ -19,18 +20,42 @@ class BuildingController
     public function create(Request $request): string
     {
         if ($request->method === 'POST') {
-            // Получаем ID текущего пользователя
-            $userId = app()->auth::user()->id;
+            $validator = new Validator($request->all(), [
+                'name' => ['required', 'unique:buildings,name', 'max:225'],
+                'address' => ['required', 'min:1', 'max:500'],
+                'user_id' => ['required', 'exists:users,id']
+            ], [
+                'required' => 'Поле обязательно для заполнения',
+                'unique' => 'Здание с таким названием уже существует',
+                'exists' => 'Выбранный пользователь не существует',
+                'min' => 'Минимум :min символов',
+                'max' => 'Максимум :max символов'
+            ]);
 
-            // Добавляем user_id в данные
+            if ($validator->fails()) {
+                // Получаем текущего пользователя для select-опции
+                $users = User::all();
+                return new View('building.create', [
+                    'errors' => $validator->errors(),
+                    'users' => $users,
+                    'old' => $request->all()
+                ]);
+            }
+
+            // Добавляем user_id текущего пользователя, если не указан
             $data = $request->all();
-            $data['user_id'] = $userId;
+            if (empty($data['user_id'])) {
+                $data['user_id'] = app()->auth::user()->id;
+            }
 
             if (Building::create($data)) {
                 app()->route->redirect('/buildings');
             }
         }
-        return new View('building.create');
+
+        // Для GET-запроса просто показываем форму
+        $users = User::all();
+        return new View('building.create', ['users' => $users]);
     }
 
     public function rooms(Request $request): string

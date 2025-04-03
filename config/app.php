@@ -16,10 +16,16 @@ return [
         'trim' => \Middlewares\TrimMiddleware::class,
         'specialChars' => \Middlewares\SpecialCharsMiddleware::class,
         'csrf' => \Middlewares\CSRFMiddleware::class,
+        'sqlInjection' => \Middlewares\SqlInjectionMiddleware::class
     ],
     //Классы для валидации
     'validators' => [
         'required' => \Validators\RequireValidator::class,
-        'unique' => \Validators\UniqueValidator::class
-    ]
+        'unique' => \Validators\UniqueValidator::class,
+        'exists' => \Validators\ExistsValidator::class,
+        'regex' => \Validators\RegexValidator::class,
+        'in' => \Validators\InValidator::class,
+        'required_with' => \Validators\RequiredWithValidator::class,
+        'min' => \Validators\LengthValidator::class,
+    ],
 ];

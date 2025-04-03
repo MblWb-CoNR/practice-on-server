@@ -2,6 +2,8 @@
 //Путь до директории с конфигурационными файлами
 const DIR_CONFIG = '/../config';
 
+echo '<pre>Session: '; print_r($_SESSION); echo '</pre>';
+
 //Подключение автозагрузчика composer
 require_once __DIR__ . '/../vendor/autoload.php';
 

@@ -43,6 +43,16 @@ class Validator
             [$validatorName, $args] = count($tmp) > 1 ? $tmp : [$validatorName, null];
             $args = isset($args) ? explode(',', $args) : [];
 
+            if ($validatorName === 'length') {
+                if (str_contains($args, ',')) {
+                    $args = explode(',', $args);
+                } elseif (!empty($args)) {
+                    $args = [$args, PHP_INT_MAX]; // Если указан только min
+                } else {
+                    continue; // Пропускаем если нет параметров
+                }
+            }
+
             //Соотносим имя валидатора с классом в массиве разрешенных валидаторов
             $validatorClass = $this->validators[$validatorName];
             if (!class_exists($validatorClass)) {

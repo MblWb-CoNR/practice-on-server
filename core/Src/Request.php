@@ -12,9 +12,11 @@ class Request
 
     public function __construct()
     {
-        $this->body = $_REQUEST;
         $this->method = $_SERVER['REQUEST_METHOD'];
         $this->headers = getallheaders() ?? [];
+
+        // Объединяем GET и POST данные
+        $this->body = array_merge($_GET, $_POST);
     }
 
     public function all(): array
@@ -27,9 +29,10 @@ class Request
         $this->body[$field] = $value;
     }
 
-    public function get($field)
+    public function get(string $key, $default = null)
     {
-        return $this->body[$field];
+        // Добавляем проверку существования ключа
+        return $this->body[$key] ?? $default;
     }
 
     public function files(): array
