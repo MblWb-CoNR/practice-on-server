@@ -8,12 +8,25 @@ use Src\View;
 use Src\Request;
 use Src\Auth\Auth;
 use Src\Validator\Validator;
+use function Collect\collection;
 
 class UserController
 {
     public function index(): string
     {
-        $users = User::all();
+        echo '<pre>';
+        print_r(User::with('role')->first()->toArray());
+        echo '</pre>';
+
+        $users = collection(User::with('role')->get()->toArray())
+            ->map(function ($user) {
+                return [
+                    'id' => $user['id'],
+                    'name' => $user['name'],
+                    'role' => $user['role']['name'] ?? 'Роль не указана'
+                ];
+            });
+
         return (new View())->render('user.index', ['users' => $users]);
     }
 

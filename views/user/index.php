@@ -9,18 +9,16 @@
     <tr>
         <th>ID</th>
         <th>Имя</th>
-        <th>Логин</th>
         <th>Роль</th>
     </tr>
     </thead>
     <tbody>
     <?php foreach ($users as $user): ?>
         <tr>
-            <td><?= $user->id ?></td>
-            <td><?= htmlspecialchars($user->name) ?></td>
-            <td><?= htmlspecialchars($user->login) ?></td>
-            <td><?= $user->role_id == 1 ? 'Администратор' : 'Сотрудник' ?></td>
+            <td><?= $user['id'] ?></td>
+            <td><?= $user['name'] ?></td>
+            <td><?= $user['role'] ?></td>
         </tr>
-    <?php endforeach; ?>
+    <?php endforeach ?>
     </tbody>
 </table>
