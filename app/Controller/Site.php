@@ -17,15 +17,15 @@ class Site
     }
     public function signup(Request $request): string
     {
-        if ($request->method === 'POST' && User::create($request->all())) {
+        if ($request->method === 'POST') {
 
             $validator = new Validator($request->all(), [
                 'name' => ['required'],
                 'login' => ['required', 'unique:users,login'],
                 'password' => ['required']
             ], [
-                'required' => 'Поле :field пусто',
-                'unique' => 'Поле :field должно быть уникально'
+                'required' => 'Поле пусто',
+                'unique' => 'Поле должно быть уникально'
             ]);
 
             if($validator->fails()){
@@ -34,11 +34,14 @@ class Site
             }
 
             if (User::create($request->all())) {
-                app()->route->redirect('/hello');
+                app()->route->redirect('/login');
+                return false;
             }
+
         }
         return new View('site.signup');
     }
+
     public function login(Request $request): string
     {
         //Если просто обращение к странице, то отобразить форму

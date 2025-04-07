@@ -15,10 +15,8 @@ class RoomController
 {
     public function index(Request $request): string
     {
-        // Получаем все здания для выпадающего списка
         $buildings = Building::all();
 
-        // Начинаем запрос с подгрузкой связанных данных
         $query = Room::query()->with(['building', 'type']);
 
         // Получаем параметры фильтрации
