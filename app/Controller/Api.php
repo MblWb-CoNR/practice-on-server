@@ -10,13 +10,19 @@ class Api
 {
     public function index(): void
     {
-            $buildings = Building::all()->toArray();
-
+        $buildings = Building::all()->toArray();
         (new View())->toJSON($buildings);
     }
 
-    public function echo(Request $request): void
+    public function protectedData(Request $request): void
     {
-        (new View())->toJSON($request->all());
+        // Только для авторизованных пользователей
+        $user = app()->auth->user();
+        $data = [
+            'user' => $user->toArray(),
+            'buildings' => Building::where('user_id', $user->id)->get()->toArray()
+        ];
+
+        (new View())->toJSON($data);
     }
 }

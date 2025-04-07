@@ -12,16 +12,21 @@ class Request
 
     public function __construct()
     {
-        $this->method = $_SERVER['REQUEST_METHOD'];
+        $this->method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
         $this->headers = getallheaders() ?? [];
 
-        // Объединяем GET и POST данные
-        $this->body = array_merge($_GET, $_POST);
+        // Чтение JSON данных для POST/PUT/PATCH
+        if (in_array($this->method, ['POST', 'PUT', 'PATCH'])) {
+            $input = json_decode(file_get_contents('php://input'), true) ?? [];
+            $this->body = array_merge($_GET, $_POST, $input);
+        } else {
+            $this->body = $_GET;
+        }
     }
 
     public function all(): array
     {
-        return $this->body + $this->files();
+        return $this->body;
     }
 
     public function set($field, $value):void
@@ -46,5 +51,10 @@ class Request
             return $this->body[$key];
         }
         throw new Error('Accessing a non-existent property');
+    }
+
+    public function getUri(): string
+    {
+        return $_SERVER['REQUEST_URI'] ?? '/';
     }
 }

@@ -18,6 +18,7 @@ return [
         'csrf' => \Middlewares\CSRFMiddleware::class,
         'sqlInjection' => \Middlewares\SqlInjectionMiddleware::class,
         'json' => \Middlewares\JSONMiddleware::class,
+        'apiAuth' => \Middlewares\ApiAuthMiddleware::class,
     ],
     //Классы для валидации
     'validators' => [
