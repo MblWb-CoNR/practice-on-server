@@ -44,7 +44,7 @@ class RoomController
         ]);
     }
 
-    public function create(Request $request): string
+    public function create(Request $request)
     {
         $types = RoomType::all();
         $buildings = Building::all();
