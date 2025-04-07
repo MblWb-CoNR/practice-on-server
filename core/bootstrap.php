@@ -10,12 +10,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 //Функция, возвращающая массив всех настроек приложения
 function getConfigs(string $path = DIR_CONFIG): array
 {
-    $settings = [
-//        'path' => [
-//            'root' => '',             // Корень проекта относительно DOCUMENT_ROOT
-//            'views' => '/../views',     // Путь к views (теперь в корне)
-//        ],
-    ];
+    $settings = [];
     foreach (scandir(__DIR__ . $path) as $file) {
         $name = explode('.', $file)[0];
         if (!empty($name)) {
@@ -26,11 +21,9 @@ function getConfigs(string $path = DIR_CONFIG): array
 }
 
 require_once __DIR__ . '/../route/web.php';
-$app = new Src\Application(new Src\Settings(getConfigs()));
+$app = new Src\Application(require __DIR__ . '/../config/app.php');
 
-//Функция возвращает глобальный экземпляр приложения
-function app() {
-    global $app;
-    return $app;
-}
+//Подключение хелперов
+require_once __DIR__ .  '/../core/helpers.php';
+
 return $app;
