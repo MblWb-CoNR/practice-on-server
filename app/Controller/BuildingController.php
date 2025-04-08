@@ -19,6 +19,8 @@ class BuildingController
 
     public function create(Request $request): string
     {
+
+        $users = User::all();
         if ($request->method === 'POST') {
             $validator = new Validator($request->all(), [
                 'name' => ['required', 'unique:buildings,name', 'max:225'],
@@ -31,6 +33,8 @@ class BuildingController
                 'min' => 'Минимум :min символов',
                 'max' => 'Максимум :max символов'
             ]);
+
+
 
             if ($validator->fails()) {
                 // Получаем текущего пользователя для select-опции
@@ -48,13 +52,12 @@ class BuildingController
                 $data['user_id'] = app()->auth::user()->id;
             }
 
+            var_dump($request);
+
             if (Building::create($data)) {
                 app()->route->redirect('/buildings');
             }
         }
-
-        // Для GET-запроса просто показываем форму
-        $users = User::all();
         return new View('building.create', ['users' => $users]);
     }
 

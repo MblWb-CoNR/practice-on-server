@@ -14,10 +14,6 @@ class UserController
 {
     public function index(): string
     {
-        echo '<pre>';
-        print_r(User::with('role')->first()->toArray());
-        echo '</pre>';
-
         $users = collection(User::with('role')->get()->toArray())
             ->map(function ($user) {
                 return [

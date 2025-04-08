@@ -22,6 +22,10 @@ class Session
         self::init();
         return $_SESSION[$key] ?? $default;
     }
+    public static function clear($name)
+    {
+        unset($_SESSION[$name]);
+    }
 
     public static function has(string $key): bool
     {

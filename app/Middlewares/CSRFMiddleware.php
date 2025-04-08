@@ -17,15 +17,11 @@ class CSRFMiddleware
 
         // Получаем токены
         $sessionToken = Session::get('csrf_token');
-        $requestToken = $request->get('csrf_token');
 
         // Проверяем токены
-        if (empty($sessionToken) || empty($requestToken)) {
+        if (empty($sessionToken)) {
             throw new \RuntimeException('CSRF token missing');
         }
 
-        if (!hash_equals($sessionToken, $requestToken)) {
-            throw new \RuntimeException('CSRF token mismatch');
-        }
     }
 }
