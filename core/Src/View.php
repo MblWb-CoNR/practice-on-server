@@ -22,10 +22,7 @@ class View
     private function getRoot(): string
     {
         global $app;
-        $root = $app->settings->getRootPath();
-        $path = $app->settings->getViewsPath();
-
-        return $_SERVER['DOCUMENT_ROOT'] . $root . $path;
+        return realpath($_SERVER['DOCUMENT_ROOT'] . $app->settings->getRootPath() . '/..') . $app->settings->getViewsPath();
     }
 
     //Путь до основного файла с шаблоном сайта
@@ -65,6 +62,16 @@ class View
     public function __toString(): string
     {
         return $this->render($this->view, $this->data);
+    }
+
+    //Преобразование массива в json и отдача клиенту
+    public function toJSON(array $data = [], int $code = 200): void
+    {
+        header_remove();
+        header("Content-Type: application/json; charset=utf-8");
+        http_response_code($code);
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        exit();
     }
 
 }

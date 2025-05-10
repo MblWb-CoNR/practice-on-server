@@ -1,0 +1,75 @@
+<?php
+
+namespace Model;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Src\Auth\IdentityInterface;
+
+class User extends Model implements IdentityInterface
+{
+    use HasFactory;
+
+    public $timestamps = false;
+    protected $fillable = [
+        'name',
+        'login',
+        'password',
+        'token'
+    ];
+
+    protected static function booted()
+    {
+        static::created(function ($user) {
+            $user->password = md5($user->password);
+            $user->save();
+        });
+    }
+
+    //Выборка пользователя по первичному ключу
+    public function findIdentity(int $id)
+    {
+        return self::where('id', $id)->first();
+    }
+
+    //Возврат первичного ключа
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    //Возврат аутентифицированного пользователя
+    public function attemptIdentity(array $credentials)
+    {
+        // Проверка по логину/паролю
+        if (isset($credentials['login'])) {
+            return self::where([
+                'login' => $credentials['login'],
+                'password' => md5($credentials['password'])
+            ])->first();
+        }
+
+        // Проверка по токену
+        if (isset($credentials['token'])) {
+            return self::where('token', $credentials['token'])->first();
+        }
+
+        return null;
+    }
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    public function generateToken(): string
+    {
+        $this->token = bin2hex(random_bytes(32));
+        $this->save();
+        return $this->token;
+    }
+    public function removeToken(): void
+    {
+        $this->token = null;
+        $this->save();
+    }
+}

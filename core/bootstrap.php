@@ -2,6 +2,8 @@
 //Путь до директории с конфигурационными файлами
 const DIR_CONFIG = '/../config';
 
+echo '<pre>Session: '; print_r($_SESSION); echo '</pre>';
+
 //Подключение автозагрузчика composer
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -18,6 +20,10 @@ function getConfigs(string $path = DIR_CONFIG): array
     return $settings;
 }
 
-require_once __DIR__ . '/../routes/web.php';
+require_once __DIR__ . '/../route/web.php';
+$app = new Src\Application(require __DIR__ . '/../config/app.php');
 
-return new Src\Application(new Src\Settings(getConfigs()));
+//Подключение хелперов
+require_once __DIR__ .  '/../core/helpers.php';
+
+return $app;
