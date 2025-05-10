@@ -22,10 +22,7 @@ class View
     private function getRoot(): string
     {
         global $app;
-        $root = $app->settings->getRootPath();
-        $path = $app->settings->getViewsPath();
-
-        return $_SERVER['DOCUMENT_ROOT'] . $root . $path;
+        return realpath($_SERVER['DOCUMENT_ROOT'] . $app->settings->getRootPath() . '/..') . $app->settings->getViewsPath();
     }
 
     //Путь до основного файла с шаблоном сайта
